@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    env_file: .env
+    restart: unless-stopped
+    networks:
+      - my_network
+    volumes:
+      - mariadb_volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "$MARIADB_USER", "-p$MARIADB_USER_PASSWORD" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    env_file: .env
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks: 
+      - my_network
+    volumes:
+      - wordpress_volume:/var/www/wordpress
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    env_file: .env
+    depends_on:
+      - wordpress
+    networks:
+      - my_network
+    volumes:
+      - wordpress_volume:/var/www/wordpress
+    ports:
+      - 443:443
+    restart: unless-stopped
+
+networks:
+  my_network:
+
+volumes:
+  mariadb_volume:
+    driver: local
+    driver_opts:
+      device: /home/tverdood/data/database
+      type: volume
+      o: bind
+
+  wordpress_volume:
+    driver: local
+    driver_opts:
+      device: /home/tverdood/data/wordpress
+      type: volume
+      o: bind
