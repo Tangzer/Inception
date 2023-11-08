@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install -y php7.3 php7.3-fpm php7.3-mysql curl
+RUN apt-get install -y php7.4 php7.4-fpm php7.4-mysql curl
 
 RUN mkdir -p /run/php
 
