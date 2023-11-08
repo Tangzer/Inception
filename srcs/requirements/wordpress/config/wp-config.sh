@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # > /dev/null 2>&1 renvoi touts les msg d'erreur a dev/null qui mute tout 
-grep -E "listen = 9000" "/etc/php/7.3/fpm/pool.d/www.conf" > /dev/null 2>&1
+grep -E "listen = 9000" "/etc/php/7.4/fpm/pool.d/www.conf" > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "modifying listen port"
-	sed -i "s|.*listen = /run/php/php7.3-fpm.sock.*|listen = 9000|g" "/etc/php/7.3/fpm/pool.d/www.conf"
+	sed -i "s|.*listen = /run/php/php7.4-fpm.sock.*|listen = 9000|g" "/etc/php/7.4/fpm/pool.d/www.conf"
 fi
 
 #--skip check permet de creer le wp-config.php sans checker la database
