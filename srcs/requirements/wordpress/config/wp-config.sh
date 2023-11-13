@@ -47,4 +47,4 @@ if ! wp core is-installed --allow-root; then
 fi
 
 echo "starting wordpress"
-php-fpm7.3 --nodaemonize
+php-fpm7.4 --nodaemonize
