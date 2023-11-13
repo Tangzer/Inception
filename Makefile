@@ -1,6 +1,6 @@
 all:
-	docker-compose -f ./srcs/docker-compose.yml build
-	"echo '127.0.0.1 tverdood.42.fr' >> /etc/hosts"
+	sudo docker-compose -f ./srcs/docker-compose.yml build
+	sudo sh -c 'echo "127.0.0.1 tverdood.42.fr" >> /etc/hosts'
 	mkdir -p /home/tverdood/data/database
 	mkdir -p /home/tverdood/data/wordpress
 	sudo docker-compose -f ./srcs/docker-compose.yml up --detach
