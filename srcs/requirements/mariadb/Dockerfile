@@ -13,4 +13,6 @@ COPY ./config/mariadb.cnf /etc/mysql
 COPY ./config/config.sql ./
 COPY ./config/config.sh ./
 
+EXPOSE 3306
+
 ENTRYPOINT [ "bash" , "config.sh" ]
